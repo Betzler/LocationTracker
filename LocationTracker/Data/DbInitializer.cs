@@ -38,6 +38,17 @@ namespace LocationTracker.Data
                 context.Division.Add(d);
             }
             context.SaveChanges();
+
+            var addresses = new Address[]
+            {
+                new Address{StateProvince="IL", Country = "US"}
+            };
+            foreach (Address a in addresses)
+            {
+                context.Address.Add(a);
+            }
+
+            context.SaveChanges();
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿@page
+@model LocationTracker.Pages.Locations.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Location</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Location.LocationID" />
+            <div class="form-group">
+                <label asp-for="Location.LocationCode" class="control-label"></label>
+                <input asp-for="Location.LocationCode" class="form-control" />
+                <span asp-validation-for="Location.LocationCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location.DivisionID" class="control-label"></label>
+                <select asp-for="Location.DivisionID" class="form-control" asp-items="ViewBag.DivisionID"></select>
+                <span asp-validation-for="Location.DivisionID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location.AddressID" class="control-label"></label>
+                <select asp-for="Location.AddressID" class="form-control" asp-items="ViewBag.AddressID"></select>
+                <span asp-validation-for="Location.AddressID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

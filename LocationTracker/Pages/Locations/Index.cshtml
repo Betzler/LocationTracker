@@ -1,0 +1,48 @@
+﻿@page
+@model LocationTracker.Pages.Locations.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Location[0].LocationCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location[0].Division)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location[0].Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Location) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Division.DivisionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address.Country)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.LocationID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.LocationID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.LocationID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

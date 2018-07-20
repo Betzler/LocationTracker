@@ -1,0 +1,37 @@
+﻿@page
+@model LocationTracker.Pages.Locations.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Location.LocationCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Location.LocationCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Location.Division)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Location.Division.DivisionName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Location.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Location.Address.Country)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Location.LocationID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
