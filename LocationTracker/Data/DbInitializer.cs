@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using LocationTracker.Models;
+
+namespace LocationTracker.Data
+{
+    public class DbInitializer
+    {
+        public static void Initialize(TrackerContext context)
+        {
+            context.Database.EnsureCreated();
+
+            if(context.Location.Any())
+            {
+                return;
+            }
+
+            var locations = new Location[]
+            {
+                new Location{LocationCode="MY9"},
+                new Location{LocationCode="B89"}
+            };
+            foreach (Location l in locations)
+            {
+                context.Location.Add(l);
+            }
+            context.SaveChanges();
+
+            var divisions = new Division[]
+            {
+                new Division{DivisionName="Carbohydrate Solutions"}
+            };
+
+            foreach (Division d in divisions)
+            {
+                context.Division.Add(d);
+            }
+            context.SaveChanges();
+        }
+    }
+}
