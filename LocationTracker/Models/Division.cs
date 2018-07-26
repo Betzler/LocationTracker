@@ -9,13 +9,7 @@ namespace LocationTracker.Models
 {
     public class Division
     {
-        [Key]
-        [Column("id")]
         public int DivisionID { get; set; }
-
-        [Required]
-        [Display(Name = "Division")]
-        [Column("division_name")]
         public string DivisionName { get; set; }
 
         public virtual Location Location { get; set; }

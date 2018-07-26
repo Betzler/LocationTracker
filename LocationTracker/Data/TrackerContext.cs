@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+
 using LocationTracker.Models;
+using LocationTracker.Data.Configurations;
 
 namespace LocationTracker.Data
 {
@@ -20,9 +22,12 @@ namespace LocationTracker.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Location>().ToTable("location");
-            modelBuilder.Entity<Division>().ToTable("division");
-            modelBuilder.Entity<Address>().ToTable("address");
+            base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.ApplyConfiguration(new LocationConfiguration());
+            modelBuilder.ApplyConfiguration(new DivisionConfiguration());
+            modelBuilder.ApplyConfiguration(new AddressConfiguration());
+
         }
     }
 }
