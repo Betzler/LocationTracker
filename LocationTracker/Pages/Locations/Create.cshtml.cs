@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LocationTracker.Data;
+using LocationTracker.Models.ViewModels;
 using LocationTracker.Models;
 
 namespace LocationTracker.Pages.Locations
@@ -27,7 +28,7 @@ namespace LocationTracker.Pages.Locations
         }
 
         [BindProperty]
-        public Location Location { get; set; }
+        public LocationCreateViewModel LocationCreateVM { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -36,10 +37,29 @@ namespace LocationTracker.Pages.Locations
                 return Page();
             }
 
-            _context.Location.Add(Location);
-            await _context.SaveChangesAsync();
+            var newLocation = new LocationCreateViewModel();
+            if(await TryUpdateModelAsync<LocationCreateViewModel>(
+                newLocation,
+                "Location",
+                l => l.LocationCode,
+                l => l.DivisionName,
+                l => l.FirstAddress,
+                l => l.SecondAddress,
+                l => l.City,
+                l => l.StateProvince,
+                l => l.Country,
+                l => l.PostalCode,
+                l => l.Lattitude,
+                l => l.Longitude
+                ))
+            {
+                // _context.LocationCreateViewModel.Add(newLocation);
 
-            return RedirectToPage("./Index");
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            return Page();
+
         }
     }
 }

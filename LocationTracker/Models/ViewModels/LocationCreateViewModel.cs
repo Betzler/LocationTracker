@@ -5,16 +5,19 @@ using System.Threading.Tasks;
 using LocationTracker.Models;
 namespace LocationTracker.Models.ViewModels
 {
-    public class LocationIndexViewModel
+    public class LocationCreateViewModel
     {
         public int LocationID { get; set; }
         public string LocationCode { get; set; }
         public string DivisionName { get; set; }
+        public string FirstAddress { get; set; }
+        public string SecondAddress { get; set; }
+        public string City { get; set; }
         public string StateProvince { get; set; }
         public string Country { get; set; }
+        public string PostalCode { get; set; }
+        public float? Lattitude { get; set; }
+        public float? Longitude { get; set; }
 
-        public IEnumerable<Location> Locations { get; set; }
-        public IEnumerable<Division> Divisions { get; set; }
-        public IEnumerable<Address> Addresses { get; set; }
     }
 }
