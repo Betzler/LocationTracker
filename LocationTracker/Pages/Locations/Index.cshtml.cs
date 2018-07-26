@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LocationTracker.Data;
-using LocationTracker.Models;
+using LocationTracker.Models.ViewModels;
 
 namespace LocationTracker.Pages.Locations
 {
@@ -19,13 +19,23 @@ namespace LocationTracker.Pages.Locations
             _context = context;
         }
 
-        public IList<Location> Location { get;set; }
+        public IList<LocationIndexViewModel> LocationIndexVM { get; set; }
+
+
+
 
         public async Task OnGetAsync()
         {
-            Location = await _context.Location
-                .Include(l => l.Address)
-                .Include(l => l.Division).ToListAsync();
+            LocationIndexVM = await _context.Location.Select(l => new LocationIndexViewModel
+            {
+                LocationID = l.LocationID,
+                LocationCode = l.LocationCode,
+                DivisionName = l.Division.DivisionName,
+                StateProvince = l.Address.StateProvince,
+                Country = l.Address.Country
+
+            }).ToListAsync();
+
         }
     }
 }

@@ -2,10 +2,10 @@
 @model LocationTracker.Pages.Locations.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Location List";
 }
 
-<h2>Index</h2>
+<h2>Locations</h2>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,28 +14,34 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Location[0].LocationCode)
+                @Html.DisplayNameFor(model => model.LocationIndexVM[0].LocationCode)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location[0].Division)
+                @Html.DisplayNameFor(model => model.LocationIndexVM[0].DivisionName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location[0].Address)
+                @Html.DisplayNameFor(model => model.LocationIndexVM[0].StateProvince)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationIndexVM[0].Country)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Location) {
+@foreach (var item in Model.LocationIndexVM) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LocationCode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Division.DivisionName)
+                @Html.DisplayFor(modelItem => item.DivisionName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address.Country)
+                @Html.DisplayFor(modelItem => item.StateProvince)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.LocationID">Edit</a> |

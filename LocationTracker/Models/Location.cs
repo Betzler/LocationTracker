@@ -14,8 +14,8 @@ namespace LocationTracker.Models
         public int? DivisionID { get; set; }
         public int? AddressID { get; set; }
 
-        public Division Division { get; set; }
-        public Address Address { get; set; }
+        public virtual Division Division { get; set; }
+        public virtual Address Address { get; set; }
     }
 }
 
