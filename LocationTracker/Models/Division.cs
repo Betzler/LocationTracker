@@ -11,7 +11,6 @@ namespace LocationTracker.Models
     {
         public int DivisionID { get; set; }
         public string DivisionName { get; set; }
-
-        public virtual Location Location { get; set; }
+        public virtual ICollection<Location> Locations { get; set; }
     }
 }

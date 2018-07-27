@@ -53,7 +53,7 @@ namespace LocationTracker.Pages.Locations
                 l => l.Longitude
                 ))
             {
-                // _context.LocationCreateViewModel.Add(newLocation);
+                _context.Add(newLocation);
 
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
