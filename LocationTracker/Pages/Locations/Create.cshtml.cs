@@ -9,6 +9,7 @@ using LocationTracker.Data;
 using LocationTracker.Models.ViewModels;
 using LocationTracker.Models;
 
+
 namespace LocationTracker.Pages.Locations
 {
     public class CreateModel : PageModel
@@ -37,28 +38,16 @@ namespace LocationTracker.Pages.Locations
                 return Page();
             }
 
-            var newLocation = new LocationCreateViewModel();
-            if(await TryUpdateModelAsync<LocationCreateViewModel>(
-                newLocation,
-                "Location",
-                l => l.LocationCode,
-                l => l.DivisionName,
-                l => l.FirstAddress,
-                l => l.SecondAddress,
-                l => l.City,
-                l => l.StateProvince,
-                l => l.Country,
-                l => l.PostalCode,
-                l => l.Lattitude,
-                l => l.Longitude
-                ))
-            {
-                _context.Add(newLocation);
+            var newLocation = _context.Add(new Location());
+            var newAddress = _context.Add(new Address());
 
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
-            }
-            return Page();
+            newAddress.CurrentValues.SetValues(LocationCreateVM);
+            newLocation.CurrentValues.SetValues(LocationCreateVM);
+
+            newLocation.Entity.AddressID = newAddress.Entity.AddressID;
+
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./Index");
 
         }
     }
