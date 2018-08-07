@@ -23,8 +23,8 @@ namespace LocationTracker.Pages.Locations
 
         public IActionResult OnGet()
         {
-        ViewData["AddressID"] = new SelectList(_context.Address, "AddressID", "Country");
-        ViewData["DivisionID"] = new SelectList(_context.Division, "DivisionID", "DivisionName");
+            ViewData["DivisionID"] = new SelectList(_context.Division, "DivisionID", "DivisionName");
+
             return Page();
         }
 
@@ -47,8 +47,8 @@ namespace LocationTracker.Pages.Locations
             newLocation.Entity.AddressID = newAddress.Entity.AddressID;
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("./Index");
 
+            return RedirectToPage("./Index");
         }
     }
 }

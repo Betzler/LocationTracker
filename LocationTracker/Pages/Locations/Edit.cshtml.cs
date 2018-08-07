@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LocationTracker.Data;
 using LocationTracker.Models;
+using LocationTracker.Models.ViewModels;
 
 namespace LocationTracker.Pages.Locations
 {
@@ -21,7 +22,7 @@ namespace LocationTracker.Pages.Locations
         }
 
         [BindProperty]
-        public Location Location { get; set; }
+        public LocationEditViewModel LocationEditVM { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,16 +31,25 @@ namespace LocationTracker.Pages.Locations
                 return NotFound();
             }
 
-            Location = await _context.Location
-                .Include(l => l.Address)
-                .Include(l => l.Division).FirstOrDefaultAsync(m => m.LocationID == id);
+            //var getEditLocation = await _context.Location.Include(l => l.Address).Include(l => l.Division).SingleOrDefaultAsync(l => l.LocationID == id);
+            LocationEditVM = await _context.Location.Select(l => new LocationEditViewModel
+            {
+                LocationID = l.LocationID,
+                LocationCode = l.LocationCode,
+                DivisionName = l.Division.DivisionName,
+                StateProvince = l.Address.StateProvince,
+                Country = l.Address.Country
 
-            if (Location == null)
+            }).SingleOrDefaultAsync(l => l.LocationID == id);
+
+            if (LocationEditVM == null)
             {
                 return NotFound();
             }
-           ViewData["AddressID"] = new SelectList(_context.Address, "AddressID", "Country");
-           ViewData["DivisionID"] = new SelectList(_context.Division, "DivisionID", "DivisionName");
+
+            ViewData["AddressID"] = new SelectList(_context.Address, "AddressID", "Country");
+            ViewData["DivisionID"] = new SelectList(_context.Division, "DivisionID", "DivisionName");
+
             return Page();
         }
 
@@ -50,7 +60,7 @@ namespace LocationTracker.Pages.Locations
                 return Page();
             }
 
-            _context.Attach(Location).State = EntityState.Modified;
+            _context.Attach(LocationEditVM).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +68,7 @@ namespace LocationTracker.Pages.Locations
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LocationExists(Location.LocationID))
+                if (!LocationExists(LocationEditVM.LocationID))
                 {
                     return NotFound();
                 }

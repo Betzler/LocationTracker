@@ -37,10 +37,12 @@
             <div class="form-group">
                 <label asp-for="LocationCreateVM.StateProvince" class="control-label"></label>
                 <input asp-for="LocationCreateVM.StateProvince" class="form-control">
+                <span asp-validation-for="LocationCreateVM.StateProvince" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LocationCreateVM.Country" class="control-label"></label>
-                <input asp-for="LocationCreateVM.Country" class="form-control" typeof="text">
+                <input asp-for="LocationCreateVM.Country" class="form-control" typeof="text"/>
+                <span asp-validation-for="LocationCreateVM.Country" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LocationCreateVM.PostalCode" class="control-label"></label>
@@ -50,11 +52,9 @@
                 <label asp-for="LocationCreateVM.Lattitude" class="control-label"></label>
                 <input asp-for="LocationCreateVM.Lattitude" type="number" step=0.000001 class="control-label" />
             </div>
-
             <div class="form-group">
                 <label asp-for="LocationCreateVM.Longitude" class="control-label"></label>
                 <input asp-for="LocationCreateVM.Longitude" type="number" step=0.000001 class="control-label" />
-
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

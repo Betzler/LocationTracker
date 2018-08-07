@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using LocationTracker.Data;
+using LocationTracker.Models.Validators;
+using FluentValidation.AspNetCore;
 
 namespace LocationTracker
 {
@@ -39,8 +41,7 @@ namespace LocationTracker
             services.AddDbContext<TrackerContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("TrackerContext")));
 
-
-
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

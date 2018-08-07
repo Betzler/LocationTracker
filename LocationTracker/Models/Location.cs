@@ -13,7 +13,7 @@ namespace LocationTracker.Models
         public string LocationCode { get; set; }
         public int? DivisionID { get; set; }
         public int? AddressID { get; set; }
-
+         
         public virtual Division Division { get; set; }
         public virtual Address Address { get; set; }
     }
