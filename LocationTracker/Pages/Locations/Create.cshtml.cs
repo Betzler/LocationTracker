@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using LocationTracker.Data;
 using LocationTracker.Models.ViewModels;
 using LocationTracker.Models;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace LocationTracker.Pages.Locations
 {
@@ -24,7 +24,7 @@ namespace LocationTracker.Pages.Locations
         public IActionResult OnGet()
         {
             ViewData["DivisionID"] = new SelectList(_context.Division, "DivisionID", "DivisionName");
-
+            ViewData["BusinessUnitID"] = new SelectList(_context.BusinessUnit, "BusinessUnitID", "BusinessUnitName");
             return Page();
         }
 
@@ -37,18 +37,29 @@ namespace LocationTracker.Pages.Locations
             {
                 return Page();
             }
-
-            var newLocation = _context.Add(new Location());
-            var newAddress = _context.Add(new Address());
-
-            newAddress.CurrentValues.SetValues(LocationCreateVM);
-            newLocation.CurrentValues.SetValues(LocationCreateVM);
-
-            newLocation.Entity.AddressID = newAddress.Entity.AddressID;
-
+            /* Changed to allow location creation with only knowing the country of origin.
+             */
+            var newLocation = new Location
+            {
+                LocationCode = LocationCreateVM.LocationCode,
+                DivisionID = LocationCreateVM.DivisionID,
+                BusinessUnitID = LocationCreateVM.BusinessUnitID,
+                Address = new Address
+                {
+                    StateProvince = LocationCreateVM.StateProvince,
+                    Country = LocationCreateVM.Country
+                }
+            };
+            
+            _context.Location.Add(newLocation);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
+
+            //_context.Add(new Location());
+            //newLocation.Context.Add(new Address());
+            //newLocation.CurrentValues.SetValues(LocationCreateVM);
+
+            //await newLocation.Context.SaveChangesAsync();
         }
     }
 }

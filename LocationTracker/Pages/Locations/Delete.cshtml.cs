@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LocationTracker.Data;
 using LocationTracker.Models;
+using LocationTracker.Models.ViewModels;
 
 namespace LocationTracker.Pages.Locations
 {
@@ -20,7 +21,7 @@ namespace LocationTracker.Pages.Locations
         }
 
         [BindProperty]
-        public Location Location { get; set; }
+        public LocationDeleteViewModel LocationDeleteVM { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,11 +30,16 @@ namespace LocationTracker.Pages.Locations
                 return NotFound();
             }
 
-            Location = await _context.Location
-                .Include(l => l.Address)
-                .Include(l => l.Division).FirstOrDefaultAsync(m => m.LocationID == id);
+            LocationDeleteVM = await _context.Location.Select(l => new LocationDeleteViewModel()
+            {
+                LocationID = l.LocationID,
+                LocationCode = l.LocationCode,
+                DivisionName = l.Division.DivisionName,
+                StateProvince = l.Address.StateProvince,
+                Country = l.Address.Country
+            }).FirstOrDefaultAsync(l => l.LocationID == id);
 
-            if (Location == null)
+            if (LocationDeleteVM == null)
             {
                 return NotFound();
             }
@@ -47,11 +53,38 @@ namespace LocationTracker.Pages.Locations
                 return NotFound();
             }
 
-            Location = await _context.Location.FindAsync(id);
-
-            if (Location != null)
+            LocationDeleteVM = await _context.Location.Select(l => new LocationDeleteViewModel()
             {
-                _context.Location.Remove(Location);
+                LocationID = l.LocationID,
+                LocationCode = l.LocationCode,
+                DivisionName = l.Division.DivisionName,
+                AddressID = l.AddressID,
+                StateProvince = l.Address.StateProvince,
+                Country = l.Address.Country
+            }).FirstOrDefaultAsync(l => l.LocationID == id);
+
+            var locationToDelete = new Location
+            {
+                LocationID = LocationDeleteVM.LocationID,
+                LocationCode = LocationDeleteVM.LocationCode,
+                AddressID = LocationDeleteVM.AddressID,
+                Address = new Address
+                {
+                    AddressID = LocationDeleteVM.AddressID,
+                    StateProvince = LocationDeleteVM.StateProvince,
+                    Country = LocationDeleteVM.Country
+                }
+                /*
+                Address = new Address
+                {
+                    StateProvince = LocationDeleteVM.StateProvince,
+                    Country = LocationDeleteVM.Country
+                }*/
+            };
+
+            if (locationToDelete != null)
+            {
+                _context.Location.Remove(locationToDelete);
                 await _context.SaveChangesAsync();
             }
 

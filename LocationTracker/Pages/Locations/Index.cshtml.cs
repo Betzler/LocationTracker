@@ -21,9 +21,6 @@ namespace LocationTracker.Pages.Locations
 
         public IList<LocationIndexViewModel> LocationIndexVM { get; set; }
 
-
-
-
         public async Task OnGetAsync()
         {
             LocationIndexVM = await _context.Location.Select(l => new LocationIndexViewModel

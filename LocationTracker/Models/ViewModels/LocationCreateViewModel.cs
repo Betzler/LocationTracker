@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LocationTracker.Models;
+using LocationTracker.Models.ViewModels.PartialViews;
 namespace LocationTracker.Models.ViewModels
 {
     public class LocationCreateViewModel
     {
-
         public string LocationCode { get; set; }
         public int DivisionID { get; set; }
         public string DivisionName { get; set; }
+        public int BusinessUnitID { get; set; }
+        public string BusinessUnitName { get; set; }
         public string FirstAddress { get; set; }
         public string SecondAddress { get; set; }
         public string City { get; set; }

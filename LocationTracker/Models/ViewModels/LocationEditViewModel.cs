@@ -8,8 +8,10 @@ namespace LocationTracker.Models.ViewModels
     public class LocationEditViewModel
     {
         public int LocationID { get; set; }
-        public string LocationCode { get; set; }
+        public int? DivisionID { get; set; }
+        public int AddressID { get; set; }
         public string DivisionName { get; set; }
+        public string LocationCode { get; set; }
         public string StateProvince { get; set; }
         public string Country { get; set; }
 

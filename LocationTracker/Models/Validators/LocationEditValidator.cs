@@ -12,8 +12,8 @@ namespace LocationTracker.Models.Validators
         public LocationEditVMValidator()
         {
             RuleFor(locationVM => locationVM.LocationCode).Length(3).NotEmpty().WithName("Location Code");
-            RuleFor(locationVM => locationVM.StateProvince).NotEmpty().WithName("State/Province");
-            RuleFor(locationVM => locationVM.Country).Length(3).NotEmpty().WithName("Country"); //Use ISO3116-1 alpha-3 codes
+            RuleFor(locationVM => locationVM.StateProvince).Length(2).WithName("State/Province");
+            RuleFor(locationVM => locationVM.Country).Length(0,3).NotEmpty().WithName("Country"); //Use ISO3116-1 alpha-3 codes
         }
     }
 }

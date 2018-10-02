@@ -1,0 +1,46 @@
+﻿@page
+@model LocationTracker.Pages.Studies.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Study</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="StudyCreateVM.StudyName" class="control-label"></label>
+                <input asp-for="StudyCreateVM.StudyName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StudyCreateVM.StudySize" class="control-label"></label>
+                <input asp-for="StudyCreateVM.StudySize" class="form-control" type="number" min="0" max="15"/>
+            </div>
+
+            <div class=" form-group">
+                <span asp-validation-for="StudyCreateVM.LocationList[0]" class="control-label"></span>
+                <select multiple="multiple" asp-for="StudyCreateVM.SelectedLocations" class="drowpdown" size="6" asp-items="@Model.LocationCodeMSL">Select</select>
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

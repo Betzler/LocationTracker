@@ -1,0 +1,52 @@
+﻿@page
+@model LocationTracker.Pages.Studies.History.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<h3>Are you sure you want to delete this item?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyHistoryDeleteVM.StudyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyHistoryDeleteVM.StudyName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyHistoryDeleteVM.StudyTypeName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyHistoryDeleteVM.StudyTypeName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyHistoryDeleteVM.StatusName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyHistoryDeleteVM.StatusName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyHistoryDeleteVM.startDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyHistoryDeleteVM.startDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyHistoryDeleteVM.endDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyHistoryDeleteVM.endDate)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="StudyHistoryDeleteVM.StudyHistoryID"/>
+        <input type="hidden" asp-for="StudyHistoryDeleteVM.StudyTypeID"/>
+        <input type="hidden" asp-for="StudyHistoryDeleteVM.StatusID"/>
+        <input type="submit" value="Delete" class="btn btn-default"/> |
+        <a asp-page="./">Back to Study</a>
+    </form>
+</div>

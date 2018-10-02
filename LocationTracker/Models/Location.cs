@@ -12,10 +12,13 @@ namespace LocationTracker.Models
         public int LocationID { get; set; }
         public string LocationCode { get; set; }
         public int? DivisionID { get; set; }
-        public int? AddressID { get; set; }
-         
+        public int? BusinessUnitID { get; set; }
+        public int AddressID { get; set; }
+        
         public virtual Division Division { get; set; }
+        public virtual BusinessUnit BusinessUnit { get; set; }
         public virtual Address Address { get; set; }
+        public virtual IList<LocationStudy> LocationStudies { get; set; }
     }
 }
 

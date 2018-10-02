@@ -1,0 +1,52 @@
+﻿@model IEnumerable<LocationTracker.Models.ViewModels.StudyHistoryIndexViewModel>
+<h3>Study History</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudyTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                <a asp-page="./History/Edit" asp-route-id="@item.StudyHistoryID">Edit</a> |
+                <a asp-page="./History/Details" asp-route-id="@item.StudyHistoryID">Details</a> |
+                <a asp-page="./History/Delete" asp-route-id="@item.StudyHistoryID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+

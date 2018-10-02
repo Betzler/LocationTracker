@@ -1,0 +1,60 @@
+﻿
+@page
+@model LocationTracker.Pages.Studies.History.IndexModel
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyHistoryIndexVM[0].StudyTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyHistoryIndexVM[0].StatusName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyHistoryIndexVM[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyHistoryIndexVM[0].EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyHistoryIndexVM[0].Comment)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.StudyHistoryIndexVM) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudyHistoryID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudyTypeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.StudyHistoryID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.StudyHistoryID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.StudyHistoryID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

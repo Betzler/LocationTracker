@@ -31,17 +31,19 @@ namespace LocationTracker.Pages.Locations
                 return NotFound();
             }
 
-            //var getEditLocation = await _context.Location.Include(l => l.Address).Include(l => l.Division).SingleOrDefaultAsync(l => l.LocationID == id);
-            LocationEditVM = await _context.Location.Select(l => new LocationEditViewModel
+            //var locationToGet = await _context.Location.Include(l => l.Address).Include(l => l.Division).AsNoTracking().SingleOrDefaultAsync(l => l.LocationID == id);
+
+            LocationEditVM = await _context.Location.Select(l => new LocationEditViewModel()
             {
                 LocationID = l.LocationID,
                 LocationCode = l.LocationCode,
-                DivisionName = l.Division.DivisionName,
+                AddressID = l.AddressID,
+                DivisionID = l.DivisionID,
                 StateProvince = l.Address.StateProvince,
                 Country = l.Address.Country
 
-            }).SingleOrDefaultAsync(l => l.LocationID == id);
-
+            }).FirstOrDefaultAsync(l => l.LocationID == id);
+            
             if (LocationEditVM == null)
             {
                 return NotFound();
@@ -53,32 +55,35 @@ namespace LocationTracker.Pages.Locations
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(LocationEditVM).State = EntityState.Modified;
+            var locationToEdit = await _context.Location.AsTracking().Include(l => l.Address).FirstOrDefaultAsync(l => l.LocationID == id);
 
-            try
+            if(locationToEdit != null)
+            {
+                locationToEdit.LocationCode = LocationEditVM.LocationCode;
+                locationToEdit.DivisionID = LocationEditVM.DivisionID;
+                locationToEdit.Address.StateProvince = LocationEditVM.StateProvince;
+                locationToEdit.Address.Country = LocationEditVM.Country;
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            if (await TryUpdateModelAsync<Location>(locationToEdit,"location", l=>l.LocationCode, 
+                l=> l.AddressID, l => l.DivisionID))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LocationExists(LocationEditVM.LocationID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
+            return Page();
         }
 
         private bool LocationExists(int id)

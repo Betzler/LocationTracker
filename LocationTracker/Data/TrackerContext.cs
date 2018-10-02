@@ -15,10 +15,17 @@ namespace LocationTracker.Data
             : base(options)
         {
         }
-            public DbSet<Location> Location { get; set; }
-            public DbSet<Division> Division { get; set; }
-            public DbSet<Address>  Address { get; set; }
 
+        public DbSet<Location> Location { get; set; }
+        public DbSet<Division> Division { get; set; }
+        public DbSet<BusinessUnit> BusinessUnit { get; set; }
+        public DbSet<Address>  Address { get; set; }
+        public DbSet<Study> Study { get; set; }
+        public DbSet<LocationStudy> LocationStudy { get; set; }
+        public DbSet<Status> Status { get; set; }
+        public DbSet<StudyType> StudyType { get; set; }
+        public DbSet<StudyHistory> StudyHistory { get; set; }
+        public DbSet<StudyResult> StudyResult { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +33,13 @@ namespace LocationTracker.Data
             
             modelBuilder.ApplyConfiguration(new LocationConfiguration());
             modelBuilder.ApplyConfiguration(new DivisionConfiguration());
+            modelBuilder.ApplyConfiguration(new BusinessUnitConfiguration());
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
+            modelBuilder.ApplyConfiguration(new StudyConfiguration());
+            modelBuilder.ApplyConfiguration(new LocationStudyConfiguration());
+            modelBuilder.ApplyConfiguration(new StatusConfiguration());
+            modelBuilder.ApplyConfiguration(new StudyTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new StudyResultConfiguration());
 
         }
     }
