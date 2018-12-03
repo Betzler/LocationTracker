@@ -1,0 +1,64 @@
+﻿@model IEnumerable<LocationTracker.Models.ViewModels.AssessmentIndexViewModel>
+
+<hr/>
+<div class="mb-3">
+    <h3>Assessments</h3>
+    <a class="btn btn-primary float-md-right" asp-page="../Assessments/Create">Create Assessment</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerformedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyRequired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerformedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudyRequired)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    <input type="hidden" asp-for="@item.LocationID"/>
+                    <a asp-page="../Assessments/Edit" asp-route-id="@item.AssessmentID">Edit</a> |
+                    <a asp-page="../Assessments/Details" asp-route-id="@item.AssessmentID">Details</a> |
+                    <a asp-page="../Assessments/Delete" asp-route-id="@item.AssessmentID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

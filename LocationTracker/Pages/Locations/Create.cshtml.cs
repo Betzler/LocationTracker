@@ -39,6 +39,7 @@ namespace LocationTracker.Pages.Locations
             }
             /* Changed to allow location creation with only knowing the country of origin.
              */
+
             var newLocation = new Location
             {
                 LocationCode = LocationCreateVM.LocationCode,
@@ -61,5 +62,6 @@ namespace LocationTracker.Pages.Locations
 
             //await newLocation.Context.SaveChangesAsync();
         }
+
     }
 }

@@ -2,34 +2,61 @@
 @model LocationTracker.Pages.Studies.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Studies List";
 }
 
-<h2>Index</h2>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<div class="mb-3">
+    <h2>Studies</h2>
+    <a class="btn btn-primary float-right" asp-page="Create">Create New</a>
+</div>
+<table class="table table-hover">
+    <thead class="thead-light">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.StudyIndexVM[0].StudyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyIndexVM[0].LocationVM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyIndexVM[0].LastStudyDate) 
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyIndexVM[0].ExpireDate)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.StudyIndexVM) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StudyName)
-            </td>
+        @foreach (var item in Model.StudyIndexVM)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudyName)
+                </td>
 
+                <td>
+
+                    @foreach (var locations in item.LocationVM)
+                    {
+                        @Html.DisplayFor(modelItem => locations.LocationFullName)
+                        <br />
+                    }
+                </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.StudyID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.StudyID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.StudyID">Delete</a>
+                @Html.DisplayFor(modelItem => item.LastStudyDate)
+            </td>
+            <td data>
+                @Html.DisplayFor(modelItem => item.ExpireDate)
+            </td>
+            <td>
+                <div class="btn-group float-right">
+                    <a class="btn btn-primary btn-sm" asp-page="./Edit" asp-route-id="@item.StudyID">Edit</a>
+                    <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.StudyID">Details</a>
+                    <a class="btn btn-primary btn-sm" asp-page="./Delete" asp-route-id="@item.StudyID">Delete</a>
+                </div>
+
             </td>
         </tr>
 }

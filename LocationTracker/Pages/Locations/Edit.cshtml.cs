@@ -31,16 +31,20 @@ namespace LocationTracker.Pages.Locations
                 return NotFound();
             }
 
-            //var locationToGet = await _context.Location.Include(l => l.Address).Include(l => l.Division).AsNoTracking().SingleOrDefaultAsync(l => l.LocationID == id);
-
             LocationEditVM = await _context.Location.Select(l => new LocationEditViewModel()
             {
                 LocationID = l.LocationID,
                 LocationCode = l.LocationCode,
                 AddressID = l.AddressID,
                 DivisionID = l.DivisionID,
+                BusinessUnitID = l.BusinessUnitID,
+                FirstAddress = l.Address.FirstAddress,
+                SecondAddress = l.Address.SecondAddress,
+                City = l.Address.City,
                 StateProvince = l.Address.StateProvince,
-                Country = l.Address.Country
+                Country = l.Address.Country,
+                Longitude = l.Address.Longitude,
+                Lattitude = l.Address.Lattitude
 
             }).FirstOrDefaultAsync(l => l.LocationID == id);
             
@@ -51,7 +55,7 @@ namespace LocationTracker.Pages.Locations
 
             ViewData["AddressID"] = new SelectList(_context.Address, "AddressID", "Country");
             ViewData["DivisionID"] = new SelectList(_context.Division, "DivisionID", "DivisionName");
-
+            ViewData["BusinessUnitID"] = new SelectList(_context.BusinessUnit, "BusinessUnitID", "BusinessUnitName");
             return Page();
         }
 
@@ -68,8 +72,14 @@ namespace LocationTracker.Pages.Locations
             {
                 locationToEdit.LocationCode = LocationEditVM.LocationCode;
                 locationToEdit.DivisionID = LocationEditVM.DivisionID;
+                locationToEdit.BusinessUnitID = LocationEditVM.BusinessUnitID;
+                locationToEdit.Address.FirstAddress = LocationEditVM.FirstAddress;
+                locationToEdit.Address.SecondAddress = LocationEditVM.SecondAddress;
+                locationToEdit.Address.City = LocationEditVM.City;
                 locationToEdit.Address.StateProvince = LocationEditVM.StateProvince;
                 locationToEdit.Address.Country = LocationEditVM.Country;
+                locationToEdit.Address.Lattitude = LocationEditVM.Lattitude;
+                locationToEdit.Address.Longitude = LocationEditVM.Longitude;
             }
             else
             {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FluentValidation;
+using LocationTracker.Models.Validators;
 
 namespace LocationTracker.Models
 {
@@ -19,6 +21,7 @@ namespace LocationTracker.Models
         public virtual BusinessUnit BusinessUnit { get; set; }
         public virtual Address Address { get; set; }
         public virtual IList<LocationStudy> LocationStudies { get; set; }
+        public virtual IList<Assessment> Assessments { get; set; }
     }
 }
 

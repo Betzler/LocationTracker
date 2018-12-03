@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<LocationTracker.Models.ViewModels.StudyHistoryIndexViewModel>
-<h3>Study History</h3>
 
+<div class="mb-3">
+<h3>Study History</h3>
+<a class="btn btn-primary btn-sm float-right" asp-page="./History/Create">Add Item</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -11,13 +14,25 @@
                 @Html.DisplayNameFor(model => model.StatusName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.VendorName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.StartDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Comment)
+                @Html.DisplayNameFor(model => model.UnderratedIssues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArcFlashIssues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentProtectionIssues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpireDate)
             </th>
         </tr>
     </thead>
@@ -32,21 +47,34 @@
                 @Html.DisplayFor(modelItem => item.StatusName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.VendorName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Comment)
+                @Html.DisplayFor(modelItem => item.UnderratedIssues)
             </td>
             <td>
-                <a asp-page="./History/Edit" asp-route-id="@item.StudyHistoryID">Edit</a> |
-                <a asp-page="./History/Details" asp-route-id="@item.StudyHistoryID">Details</a> |
-                <a asp-page="./History/Delete" asp-route-id="@item.StudyHistoryID">Delete</a>
+                @Html.DisplayFor(modelItem => item.ArcFlashIssues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentProtectionIssues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpireDate)
+            </td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-sm btn-primary" asp-page="./History/Edit" asp-route-id="@item.StudyHistoryID">Edit</a>
+                    <a class="btn btn-sm btn-primary" asp-page="./History/Details" asp-route-id="@item.StudyHistoryID">Details</a>
+                    <a class="btn btn-sm btn-primary" asp-page="./History/Delete" asp-route-id="@item.StudyHistoryID">Delete</a>
+                </div>
             </td>
         </tr>
     }
     </tbody>
 </table>
-

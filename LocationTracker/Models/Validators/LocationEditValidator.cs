@@ -13,7 +13,7 @@ namespace LocationTracker.Models.Validators
         {
             RuleFor(locationVM => locationVM.LocationCode).Length(3).NotEmpty().WithName("Location Code");
             RuleFor(locationVM => locationVM.StateProvince).Length(2).WithName("State/Province");
-            RuleFor(locationVM => locationVM.Country).Length(0,3).NotEmpty().WithName("Country"); //Use ISO3116-1 alpha-3 codes
+            RuleFor(locationVM => locationVM.Country).Length(0, 3).NotEmpty().WithName("Country"); //Use ISO3116-1 alpha-3 codes
         }
     }
 }

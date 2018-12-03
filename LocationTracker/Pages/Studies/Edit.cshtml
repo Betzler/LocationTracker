@@ -13,13 +13,17 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Study.StudyID" />
+            <input type="hidden" asp-for="@Model.StudyEditVM.StudyID" />
             <div class="form-group">
-                <label asp-for="Study.StudyName" class="control-label"></label>
-                <input asp-for="Study.StudyName" class="form-control" />
-                <span asp-validation-for="Study.StudyName" class="text-danger"></span>
+                <label asp-for="@Model.StudyEditVM.StudyName" class="control-label"></label>
+                <input asp-for="@Model.StudyEditVM.StudyName" class="form-control" />
+                <span asp-validation-for="@Model.StudyEditVM.StudyName" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="@Model.StudyEditVM.SelectedLocations" class="control-label"></label>
+                <br />
+                <select class="selectpicker" multiple asp-for="@Model.StudyEditVM.SelectedLocations" asp-items="@Model.LocationCodeMSL"></select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

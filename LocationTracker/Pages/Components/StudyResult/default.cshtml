@@ -1,52 +1,94 @@
-﻿@model IEnumerable<LocationTracker.Models.ViewModels.StudyHistoryIndexViewModel>
-<h3>Study Results</h3>
+﻿@model IEnumerable<LocationTracker.Models.ViewModels.StudyResultViewModel>
 
+<div class="mb-3">
+
+    <h3>Study Results</h3>
+    <a class="btn btn-primary btn-sm float-right" asp-page="./Results/Create" asp-route-id="@ViewData["StudyID"]">Add Item</a>
+
+</div>
+<canvas id="resultsChart"></canvas>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.StudyTypeName)
+                @Html.DisplayNameFor(model => model.DateCompleted)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StatusName)
+                @Html.DisplayNameFor(model => model.UnderratedIssues)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartDate)
+                @Html.DisplayNameFor(model => model.ArcFlashIssues)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Comment)
+                @Html.DisplayNameFor(model => model.EquipmentProtectionIssues)
             </th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StudyTypeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
-                <a asp-page="./StudyHistory/Edit" asp-route-id="@item.StudyHistoryID">Edit</a> |
-                <a asp-page="./StudyHistory/Details" asp-route-id="@item.StudyHistoryID">Details</a> |
-                <a asp-page="./StudyHistory/Delete" asp-route-id="@item.StudyHistoryID">Delete</a>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCompleted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnderratedIssues)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArcFlashIssues)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipmentProtectionIssues)
+                </td>
+                <td>
+                    <div class="btn-group float-right">
+                        <a class="btn btn-primary btn-sm" asp-page="./StudyHistory/Edit" asp-route-id="@item.StudyResultID">Edit</a>
+                        <a class="btn btn-primary btn-sm" asp-page="./StudyHistory/Delete" asp-route-id="@item.StudyResultID">Delete</a>
+                    </div>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts{
+    @{
+        <script type="text/javascript">
+            $(document).ready(
+                function () {
+                    var chartName = "result";
+                    var ctx = document.getElementById("resultsChart");
+                    var chartResult = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+
+                            labels: ["Date"],
+                            datasets: [{
+                                label: '# of Issues',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+
+                                    }
+
+                                }]
+
+                            }
+
+                        }
+
+                    });
+
+                }
+
+            );
+        </script>
+    }
+}
 

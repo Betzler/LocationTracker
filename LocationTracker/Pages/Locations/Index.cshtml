@@ -5,16 +5,19 @@
     ViewData["Title"] = "Location List";
 }
 
-<h2>Locations</h2>
+<div class="mb-3">
+    <h2>Locations</h2>
+    <a class="btn btn-primary float-md-right" role="button" asp-page="Create">Create New</a>
+</div>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<table class="table table-hover">
+    <thead class="thead-light">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.LocationIndexVM[0].LocationCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationIndexVM[0].BusinessUnitName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LocationIndexVM[0].DivisionName)
@@ -29,26 +32,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.LocationIndexVM) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LocationCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DivisionName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StateProvince)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.LocationID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.LocationID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.LocationID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.LocationIndexVM)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusinessUnitName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DivisionName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateProvince)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    <div class="btn-group float-right" role="group">
+                        <a class="btn btn-primary btn-sm" role="button" asp-page="./Edit" asp-route-id="@item.LocationID">Edit</a>
+                        <a class="btn btn-primary btn-sm" role="button" asp-page="./Details" asp-route-id="@item.LocationID">Details</a>
+                        <a class="btn btn-primary btn-sm" role="button" asp-page="./Delete" asp-route-id="@item.LocationID">Delete</a>
+                    </div>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

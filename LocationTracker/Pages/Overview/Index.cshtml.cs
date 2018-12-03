@@ -24,10 +24,15 @@ namespace LocationTracker.Pages.Overview
 
         public async Task OnGetAsync()
         {
-            OverviewIndexVM.LocationsTotal = _context.Location.Count();
-            OverviewIndexVM.StudiesTotal = _context.Study.Count();
+            OverviewIndexVM = new OverviewIndexViewModel
+            {
+                OverviewBusinessUnitLocationsIndexVM = new List<OverviewBusinessUnitLocationsIndexViewModel>(),
+                OverviewDivisionLocationsIndexVM = new List<OverviewDivisionLocationsIndexViewModel>()
+            };
+            OverviewIndexVM.StudiesTotal = await _context.Study.CountAsync();
 
-            OverviewIndexVM.OverviewBusinessUnitLocationsIndexVM = new List<OverviewBusinessUnitLocationsIndexViewModel>();
+
+            OverviewIndexVM.LocationsTotal = await _context.Location.CountAsync();
 
         }
     }

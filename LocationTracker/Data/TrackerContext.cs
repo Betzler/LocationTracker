@@ -26,6 +26,11 @@ namespace LocationTracker.Data
         public DbSet<StudyType> StudyType { get; set; }
         public DbSet<StudyHistory> StudyHistory { get; set; }
         public DbSet<StudyResult> StudyResult { get; set; }
+        public DbSet<Assessment> Assessment { get; set; }
+        public DbSet<Country> Country { get; set; }
+        public DbSet<Subdivision> Subdivision { get; set; }
+        public DbSet<Vendor> Vendor { get; set;}
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,9 +43,13 @@ namespace LocationTracker.Data
             modelBuilder.ApplyConfiguration(new StudyConfiguration());
             modelBuilder.ApplyConfiguration(new LocationStudyConfiguration());
             modelBuilder.ApplyConfiguration(new StatusConfiguration());
+            modelBuilder.ApplyConfiguration(new StudyHistoryConfiguration());
             modelBuilder.ApplyConfiguration(new StudyTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StudyResultConfiguration());
-
+            modelBuilder.ApplyConfiguration(new AssessmentConfiguration());
+            modelBuilder.ApplyConfiguration(new CountryConfiguration());
+            modelBuilder.ApplyConfiguration(new SubdivisionConfiguration());
+            modelBuilder.ApplyConfiguration(new VendorConfiguration());
         }
     }
 }

@@ -1,0 +1,56 @@
+﻿@page
+@model LocationTracker.Pages.Assessments.CreateModel;
+
+<h4>AssessmentCreateVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AssessmentCreateVM.LocationsList" class="control-label"></label>
+                <select asp-for="AssessmentCreateVM.LocationID" class ="form-control" asp-items="@Model.AssessmentCreateVM.LocationsList"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssessmentCreateVM.VendorID" class="control-label"></label>
+                <select asp-for="AssessmentCreateVM.VendorID" asp-items="@Model.AssessmentCreateVM.VendorList" class="form-control"></select>
+                <span asp-validation-for="AssessmentCreateVM.VendorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssessmentCreateVM.StatusesList" class="control-label"></label>
+                <select asp-for="AssessmentCreateVM.StatusID" class ="form-control" asp-items="@Model.AssessmentCreateVM.StatusesList"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssessmentCreateVM.StudyRequired" class="control-label"></label>
+                <select asp-for="@Model.AssessmentCreateVM.StudyRequired" asp-items="@Model.AssessmentCreateVM.TrueFalseNullSL" class="form-control"></select>
+                <span asp-validation-for="AssessmentCreateVM.StudyRequired" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssessmentCreateVM.StartDate" class="control-label"></label>
+                <input asp-for="AssessmentCreateVM.StartDate" class="form-control" type="date"/>
+                <span asp-validation-for="AssessmentCreateVM.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssessmentCreateVM.EndDate" class="control-label"></label>
+                <input asp-for="AssessmentCreateVM.EndDate" class="form-control" type="date"/>
+                <span asp-validation-for="AssessmentCreateVM.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssessmentCreateVM.Comment" class="control-label"></label>
+                <input asp-for="AssessmentCreateVM.Comment" class="form-control" />
+                <span asp-validation-for="AssessmentCreateVM.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

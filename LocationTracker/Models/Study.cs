@@ -13,5 +13,6 @@ namespace LocationTracker.Models
 
         public virtual IList<LocationStudy> LocationStudies { get; set; }
         public virtual IList<StudyHistory> StudyHistory { get; set; }
+        public virtual IList<StudyResult> StudyResults { get; set; }
     }
 }

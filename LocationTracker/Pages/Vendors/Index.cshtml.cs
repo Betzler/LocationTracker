@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LocationTracker.Data;
 using LocationTracker.Models;
-using LocationTracker.Models.ViewModels;
+using LocationTracker.ViewModels;
 
-namespace LocationTracker.Pages.Studies.History
+namespace LocationTracker.Pages.Vendors
 {
     public class IndexModel : PageModel
     {
@@ -20,17 +20,15 @@ namespace LocationTracker.Pages.Studies.History
             _context = context;
         }
 
-        public IList<StudyHistoryIndexViewModel> StudyHistoryIndexVM { get;set; }
+        public IList<VendorViewModel> VendorVM { get;set; }
 
         public async Task OnGetAsync()
         {
-            StudyHistoryIndexVM = await _context.StudyHistory.Select(s => new StudyHistoryIndexViewModel
+            VendorVM = await _context.Vendor.Select(v => new VendorViewModel
             {
-                StudyHistoryID = s.StudyHistoryID,
-                StudyTypeID = s.StudyTypeID,
-                StatusID = s.StatusID,
-                StartDate = s.StartDate,
-                EndDate = s.EndDate
+                VendorID = v.VendorID,
+                VendorNumber = v.VendorNumber,
+                VendorName = v.VendorName
             }).ToListAsync();
         }
     }

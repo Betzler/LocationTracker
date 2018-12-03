@@ -1,0 +1,47 @@
+﻿@page
+@model LocationTracker.Pages.Studies.Results.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>StudyResult</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyResult.UnderratedIssues)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyResult.UnderratedIssues)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyResult.ArcFlashIssues)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyResult.ArcFlashIssues)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyResult.EquipmentProtectionIssues)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyResult.EquipmentProtectionIssues)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyResult.DateCompleted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyResult.DateCompleted)
+        </dd>
+
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="StudyResult.StudyResultID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

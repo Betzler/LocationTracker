@@ -2,36 +2,58 @@
 @model LocationTracker.Pages.Locations.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Location Details";
 }
+<h3>Details</h3>
 
-<h2>Details</h2>
+<hr />
 
-<div>
-    <h4>Location</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Location.LocationCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Location.LocationCode)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Location.Division)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Location.Division.DivisionName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Location.Address)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Location.Address.Country)
-        </dd>
-    </dl>
+<div class="btn-group float-right" role="group" aria-label="Navigation Buttons">
+    <a class="btn btn-primary" asp-page="./Index"><i class="fas fa-caret-left"></i></a>
+    <div class="btn-group" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Options
+        </button>
+        <div class="dropdown-menu" aria-label="Dropdown Group">
+            <a class="dropdown-item" asp-page="./Edit" asp-route-id="@Model.LocationDetailsVM.LocationID">Edit</a>
+            <a class="dropdown-item" asp-page="./Delete" asp-route-id="@Model.LocationDetailsVM.LocationID">Delete</a>
+        </div>
+    </div>
 </div>
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.LocationDetailsVM.LocationCode):
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.LocationDetailsVM.LocationCode)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.LocationDetailsVM.BusinessUnitName):
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.LocationDetailsVM.BusinessUnitName)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.LocationDetailsVM.DivisionName):
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.LocationDetailsVM.DivisionName)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.LocationDetailsVM.StateProvince):
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.LocationDetailsVM.StateProvince)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.LocationDetailsVM.Country):
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.LocationDetailsVM.Country)
+    </dd>
+</dl>
+
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Location.LocationID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    @await Component.InvokeAsync("Assessment", Model.LocationDetailsVM.LocationID)
 </div>

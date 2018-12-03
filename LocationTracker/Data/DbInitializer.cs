@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LocationTracker.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocationTracker.Data
 {
@@ -10,16 +11,19 @@ namespace LocationTracker.Data
     {
         public static void Initialize(TrackerContext context)
         {
-            context.Database.EnsureCreated();
+            context.Database.Migrate();
 
             InitializeLocations(context);
             InitializeDivisions(context);
             InitializeAddresses(context);
             InitializeStudies(context);
-            InitializeStatus(context);
-            InitializeStudyType(context);
+            InitializeStatuses(context);
+            InitializeStudyTypes(context);
             InitializeBusinessUnits(context);
-
+            InitializeAssessments(context);
+            InitializeCountries(context);
+            InitializeSubdivisions(context);
+            InitializeVendors(context);
             context.SaveChangesAsync();
         }
 
@@ -70,19 +74,19 @@ namespace LocationTracker.Data
 
             var businessUnits = new BusinessUnit[]
             {
-                new BusinessUnit{BusinessUnitName = "Alliance Nutrition"},
-                new BusinessUnit{BusinessUnitName = "ARTCO - American River Transport Company"},
-                new BusinessUnit{BusinessUnitName = "Corn"},
-                new BusinessUnit{BusinessUnitName = "Corporate"},
-                new BusinessUnit{BusinessUnitName = "Edible Bean"},
-                new BusinessUnit{BusinessUnitName = "GPC - Golden Peanut Company"},
-                new BusinessUnit{BusinessUnitName = "Grain"},
-                new BusinessUnit{BusinessUnitName = "Milling"},
-                new BusinessUnit{BusinessUnitName = "Oilseeds"},
-                new BusinessUnit{BusinessUnitName = "Research"},
-                new BusinessUnit{BusinessUnitName = "Stratas Foods"},
-                new BusinessUnit{BusinessUnitName = "Transportation"},
-                new BusinessUnit{BusinessUnitName = "WFSI - WILD Flavors and Specialty Ingredients"}
+                new BusinessUnit{DivisionID = 2, BusinessUnitName = "Alliance Nutrition"},
+                new BusinessUnit{DivisionID = 4, BusinessUnitName = "ARTCO - American River Transport Company"},
+                new BusinessUnit{DivisionID = 1, BusinessUnitName = "Corn"},
+                new BusinessUnit{DivisionID = 5, BusinessUnitName = "Corporate"},
+                new BusinessUnit{DivisionID = 4, BusinessUnitName = "Edible Bean"},
+                new BusinessUnit{DivisionID = 4, BusinessUnitName = "GPC - Golden Peanut Company"},
+                new BusinessUnit{DivisionID = 4, BusinessUnitName = "Grain"},
+                new BusinessUnit{DivisionID = 1, BusinessUnitName = "Milling"},
+                new BusinessUnit{DivisionID = 3, BusinessUnitName = "Oilseeds"},
+                new BusinessUnit{DivisionID = 5, BusinessUnitName = "Research"},
+                new BusinessUnit{DivisionID = 4, BusinessUnitName = "Stratas Foods"},
+                new BusinessUnit{DivisionID = 4, BusinessUnitName = "Transportation"},
+                new BusinessUnit{DivisionID = 2, BusinessUnitName = "WFSI - WILD Flavors and Specialty Ingredients"}
             };
 
             foreach (BusinessUnit b in businessUnits)
@@ -128,7 +132,7 @@ namespace LocationTracker.Data
             context.SaveChanges();
         }
 
-        public static void InitializeStatus(TrackerContext context)
+        public static void InitializeStatuses(TrackerContext context)
         {
             if (context.Status.Any())
             {
@@ -151,7 +155,7 @@ namespace LocationTracker.Data
             context.SaveChanges();
         }
 
-        public static void InitializeStudyType(TrackerContext context)
+        public static void InitializeStudyTypes(TrackerContext context)
         {
             if (context.StudyType.Any())
             {
@@ -172,6 +176,73 @@ namespace LocationTracker.Data
 
             context.SaveChanges();
         }
-    
+        public static void InitializeAssessments(TrackerContext context)
+        {
+            if (context.Assessment.Any())
+            {
+                return;
+            }
+
+            var assessments = new Assessment[]
+            {
+            };
+
+            foreach (Assessment a in assessments)
+            {
+                context.Assessment.Add(a);
+            }
+
+            context.SaveChanges();
+        }
+
+        public static void InitializeCountries(TrackerContext context)
+        {
+            if (context.Country.Any())
+            {
+                return;
+            }
+
+            var countries = new Country[]
+            {
+            };
+
+            foreach (Country c in countries)
+            {
+            }
+        }
+
+        public static void InitializeSubdivisions(TrackerContext context)
+        {
+            if (context.Subdivision.Any())
+            {
+                return;
+            }
+
+            var subdivisions = new Subdivision[]
+            {
+            };
+
+            foreach (Subdivision s in subdivisions)
+            {
+            }
+        }
+
+        public static void InitializeVendors(TrackerContext context)
+        {
+            if(context.Vendor.Any())
+            {
+                return;
+            }
+
+            var vendors = new Vendor[]
+            {
+            };
+
+            foreach(Vendor v in vendors)
+            {
+                context.Vendor.Add(v);
+            }
+            context.SaveChanges();
+        }
     }
 }

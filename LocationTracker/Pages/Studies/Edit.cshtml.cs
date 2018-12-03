@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LocationTracker.Data;
 using LocationTracker.Models;
+using LocationTracker.Models.ViewModels;
 
 namespace LocationTracker.Pages.Studies
 {
-    public class EditModel : PageModel
+    public class EditModel : LocationCodePageModel
     {
         private readonly LocationTracker.Data.TrackerContext _context;
 
@@ -21,7 +22,7 @@ namespace LocationTracker.Pages.Studies
         }
 
         [BindProperty]
-        public Study Study { get; set; }
+        public StudyEditViewModel StudyEditVM { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,9 +31,17 @@ namespace LocationTracker.Pages.Studies
                 return NotFound();
             }
 
-            Study = await _context.Study.FirstOrDefaultAsync(m => m.StudyID == id);
+            StudyEditVM = await _context.Study.Include(s => s.LocationStudies).Select(s => new StudyEditViewModel
+            {
+                StudyID = s.StudyID,
+                StudyName = s.StudyName,
+                StudySize = s.StudySize,
+                SelectedLocations = _context.LocationStudy.Where(ls => ls.StudyID == s.StudyID).Select(ls => ls.LocationID).ToList()
+            }).FirstOrDefaultAsync(ls => ls.StudyID == id);
 
-            if (Study == null)
+            await PopulateLocationCodeMSL(_context);
+
+            if (StudyEditVM == null)
             {
                 return NotFound();
             }
@@ -46,7 +55,36 @@ namespace LocationTracker.Pages.Studies
                 return Page();
             }
 
-            _context.Attach(Study).State = EntityState.Modified;
+            var studyToEdit = _context.Study.Include(s => s.LocationStudies).FirstOrDefault(s => s.StudyID == StudyEditVM.StudyID);
+           
+            //studyToEdit.LocationStudies = await _context.LocationStudy.Where(ls => ls.StudyID == StudyEditVM.StudyID).ToListAsync();
+
+            _context.Attach(studyToEdit).State = EntityState.Modified;
+
+            if (studyToEdit == null)
+            {
+                return NotFound();
+            }
+
+            studyToEdit.StudyID = StudyEditVM.StudyID;
+            studyToEdit.StudyName = StudyEditVM.StudyName;
+            studyToEdit.StudySize = StudyEditVM.StudySize;
+
+            //Remove LocationStudy if it has not been selected
+            studyToEdit.LocationStudies.Where(ls => !StudyEditVM.SelectedLocations.Contains(ls.LocationID))
+                .ToList().ForEach(remls => studyToEdit.LocationStudies.Remove(remls));
+
+            //Add LocationStudy if it remains in the list after excluding prior location studies
+
+            var existingLocationStudies = studyToEdit.LocationStudies.Select(ls => ls.LocationID);
+            var nonExistingLocationStudies = StudyEditVM.SelectedLocations.Except(existingLocationStudies).ToList();            
+
+            foreach (int locationStudy in nonExistingLocationStudies)
+                studyToEdit.LocationStudies.Add(new LocationStudy
+                {
+                    StudyID = StudyEditVM.StudyID,
+                    LocationID = locationStudy
+                });
 
             try
             {
@@ -54,7 +92,7 @@ namespace LocationTracker.Pages.Studies
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudyExists(Study.StudyID))
+                if (!StudyExists(studyToEdit.StudyID))
                 {
                     return NotFound();
                 }

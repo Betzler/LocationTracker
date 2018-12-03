@@ -9,39 +9,79 @@
 
 <h4>Location</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
+<form method="post">
+    <div class="container">
+        <div class="row">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="LocationEditVM.LocationID" />
             <input type="hidden" asp-for="LocationEditVM.AddressID" />
-            <div class="form-group">
+            <div class="form-group col-4">
                 <label asp-for="LocationEditVM.LocationCode" class="control-label"></label>
                 <input asp-for="LocationEditVM.LocationCode" class="form-control" />
                 <span asp-validation-for="LocationEditVM.LocationCode" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-4">
                 <label asp-for="LocationEditVM.DivisionName" class="control-label"></label>
                 <select asp-for="LocationEditVM.DivisionID" class="form-control" asp-items="ViewBag.DivisionID"></select>
                 <span asp-validation-for="LocationEditVM.DivisionName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-4">
+                <label asp-for="LocationEditVM.BusinessUnitName" class="control-label"></label>
+                <select asp-for="LocationEditVM.BusinessUnitID" class="form-control" asp-items="ViewBag.BusinessUnitID"></select>
+                <span asp-validation-for="LocationEditVM.BusinessUnitName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-6">
+                <label asp-for="LocationEditVM.FirstAddress" class="control-label"></label>
+                <input asp-for="LocationEditVM.FirstAddress" class="form-control" />
+                <span asp-validation-for="LocationEditVM.FirstAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-6">
+                <label asp-for="LocationEditVM.SecondAddress" class="control-label"></label>
+                <input asp-for="LocationEditVM.SecondAddress" class="form-control" />
+                <span asp-validation-for="LocationEditVM.SecondAddress" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4">
+                <label asp-for="LocationEditVM.City" class="control-label"></label>
+                <input asp-for="LocationEditVM.City" class="form-control" />
+                <span asp-validation-for="LocationEditVM.City" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
                 <label asp-for="LocationEditVM.StateProvince" class="control-label"></label>
-                <input asp-for="LocationEditVM.StateProvince" class="form-control"/>
+                <input asp-for="LocationEditVM.StateProvince" class="form-control" />
                 <span asp-validation-for="LocationEditVM.StateProvince" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-4">
                 <label asp-for="LocationEditVM.Country" class="control-label"></label>
-                <input asp-for="LocationEditVM.Country" class="form-control"/>
+                <input asp-for="LocationEditVM.Country" class="form-control" />
                 <span asp-validation-for="LocationEditVM.Country" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+        <div class="row">
+            <div class="form-group col-4">
+                <label asp-for="LocationEditVM.Lattitude" class="control-label"></label>
+                <input asp-for="LocationEditVM.Lattitude" class="form-control" />
+                <span asp-validation-for="LocationEditVM.Lattitude" class="text-danger"></span>
             </div>
-        </form>
-    </div>
-</div>
+            <div class="form-group col-4">
+                <label asp-for="LocationEditVM.Longitude" class="control-label"></label>
+                <input asp-for="LocationEditVM.Longitude" class="form-control" />
+                <span asp-validation-for="LocationEditVM.Longitude" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
 
+    </div>
+
+</form>
 <div>
     <a asp-page="./Index">Back to List</a>
 </div>

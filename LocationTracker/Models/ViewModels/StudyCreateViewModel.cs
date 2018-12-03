@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LocationTracker.Models.ViewModels
 {
-    public partial class StudyCreateLocationViewModel
+    public partial class StudyCreateViewModel : LocationCodeViewModel
     {
-        public int LocationID { get; set; }
-        public string LocationCode { get; set; }
-        public string DivisionName { get; set; }
-    }
-
-    public partial class StudyCreateViewModel
-    {
+        [Display(Name = "Study Name")]
         public string StudyName { get; set; }
+
+        [Display(Name = "Study Size")]
         public int StudySize { get; set; }
-        public int[] SelectedLocations { get; set; }
-        public virtual IList<StudyCreateLocationViewModel> SelectedLocationsList { get; set; }
-        public virtual IList<StudyCreateLocationViewModel> LocationList { get; set; }
+
+        [Display(Name = "Locations")]
+        public List<int> SelectedLocations { get; set; }
+
+        public IList<LocationCodeViewModel> LocationsList { get; set; }
     }
 }

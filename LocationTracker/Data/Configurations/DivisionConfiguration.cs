@@ -21,6 +21,7 @@ namespace LocationTracker.Data.Configurations
             builder.Property(d => d.DivisionName).IsRequired(true).HasMaxLength(50).HasColumnName("name");
             
             builder.HasMany(d => d.Locations).WithOne(l => l.Division);
+            builder.HasMany(d => d.BusinessUnits).WithOne(b => b.Division);
         }
     }
 }

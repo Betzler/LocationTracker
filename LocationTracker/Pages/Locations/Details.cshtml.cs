@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LocationTracker.Data;
 using LocationTracker.Models;
+using LocationTracker.ViewComponents;
+using LocationTracker.Models.ViewModels;
 
 namespace LocationTracker.Pages.Locations
 {
@@ -19,7 +21,7 @@ namespace LocationTracker.Pages.Locations
             _context = context;
         }
 
-        public Location Location { get; set; }
+        public LocationDetailsViewModel LocationDetailsVM { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,11 +30,24 @@ namespace LocationTracker.Pages.Locations
                 return NotFound();
             }
 
-            Location = await _context.Location
-                .Include(l => l.Address)
-                .Include(l => l.Division).FirstOrDefaultAsync(m => m.LocationID == id);
+            LocationDetailsVM = await _context.Location.Select(l => new LocationDetailsViewModel()
+            {
+                LocationID = l.LocationID,
+                LocationCode = l.LocationCode,
+                DivisionName = l.Division.DivisionName,
+                BusinessUnitName = l.BusinessUnit.BusinessUnitName,
+                FirstAddress = l.Address.FirstAddress,
+                SecondAddress = l.Address.SecondAddress,
+                City = l.Address.City,
+                StateProvince = l.Address.StateProvince,
+                Country = l.Address.Country,
+                PostalCode = l.Address.PostalCode,
+                Lattitude = l.Address.Lattitude,
+                Longitude = l.Address.Longitude
 
-            if (Location == null)
+            }).FirstOrDefaultAsync(l => l.LocationID == id);
+
+            if (LocationDetailsVM == null)
             {
                 return NotFound();
             }

@@ -28,6 +28,7 @@ namespace LocationTracker.Pages.Locations
                 LocationID = l.LocationID,
                 LocationCode = l.LocationCode,
                 DivisionName = l.Division.DivisionName,
+                BusinessUnitName = l.BusinessUnit.BusinessUnitName,
                 StateProvince = l.Address.StateProvince,
                 Country = l.Address.Country
 

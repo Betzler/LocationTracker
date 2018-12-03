@@ -1,0 +1,75 @@
+﻿@model LocationTracker.Models.ViewModels.StudyHistoryGraphViewModel
+
+<h3>Study History Chart</h3>
+<canvas id="myChart" width="400" height="200"></canvas>
+
+<script type="text/javascript" on-content-loaded="true">
+
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Labels)),
+            datasets: [{
+                label: 'Underrated Issues',
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.UnderratedData)),
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255,99,132,1)',
+                fill: false,
+            },
+                {
+                    label: 'Arc Flash Issues',
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ArcFlashData)),
+                    backgroundColor: 'rgba(138, 43, 226, 0.2)',
+                    borderColor: 'rgba(138,43,226,1)',
+                    fill: false,
+                },
+                {
+                    label: 'Equipment Protection Issues',
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.EquipmentProtectionData)),
+                    backgroundColor: 'rgba(255, 165, 0, 0.2)',
+                    borderColor: 'rgba(255, 165, 0,1)',
+                    fill: false,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            hover: {
+                mode: 'nearest',
+                intersect: false,
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: true,
+                displayColors: true,
+
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: '# of Issues'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+

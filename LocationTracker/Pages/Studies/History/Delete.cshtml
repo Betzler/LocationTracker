@@ -2,7 +2,7 @@
 @model LocationTracker.Pages.Studies.History.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Study";
 }
 
 
@@ -29,20 +29,21 @@
             @Html.DisplayFor(model => model.StudyHistoryDeleteVM.StatusName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.StudyHistoryDeleteVM.startDate)
+            @Html.DisplayNameFor(model => model.StudyHistoryDeleteVM.StartDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.StudyHistoryDeleteVM.startDate)
+            @Html.DisplayFor(model => model.StudyHistoryDeleteVM.StartDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.StudyHistoryDeleteVM.endDate)
+            @Html.DisplayNameFor(model => model.StudyHistoryDeleteVM.EndDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.StudyHistoryDeleteVM.endDate)
+            @Html.DisplayFor(model => model.StudyHistoryDeleteVM.EndDate)
         </dd>
     </dl>
     
     <form method="post">
+        <input type="hidden" asp-for="StudyHistoryDeleteVM.StudyID"/>
         <input type="hidden" asp-for="StudyHistoryDeleteVM.StudyHistoryID"/>
         <input type="hidden" asp-for="StudyHistoryDeleteVM.StudyTypeID"/>
         <input type="hidden" asp-for="StudyHistoryDeleteVM.StatusID"/>

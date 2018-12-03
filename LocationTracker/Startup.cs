@@ -35,11 +35,16 @@ namespace LocationTracker
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddRouting(options =>
+            {
+                // This lambda determines whether lowercase page names will be used in URLs.
+                options.LowercaseUrls = true;
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<TrackerContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("TrackerContext")));
+                services.AddDbContext<TrackerContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SQLServerContext")));
 
             services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
@@ -60,7 +65,7 @@ namespace LocationTracker
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

@@ -22,20 +22,24 @@ namespace LocationTracker.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
+            ViewData.Add("StudyID", id);
+
+
             return View(await GetResultAsync(id));
         }
 
-        private async Task<IList<StudyResultIndexViewModel>> GetResultAsync(int id)
+        private async Task<IList<StudyResultViewModel>> GetResultAsync(int id)
         {
-            IList<StudyResultIndexViewModel> studyResultList = new List<StudyResultIndexViewModel>();
-            studyResultList = await _context.StudyResult.Where(s => s.StudyHistory.StudyID == id).Select(s => new StudyResultIndexViewModel()
+            IList<StudyResultViewModel> studyResultList = new List<StudyResultViewModel>();
+
+            studyResultList = await _context.StudyResult.Where(s => s.StudyID == id).OrderByDescending(s => s.DateCompleted).Select(s => new StudyResultViewModel()
             {
-               StudyHistoryID = s.StudyHistoryID,
                StudyResultID = s.StudyResultID,
                UnderratedIssues = s.UnderratedIssues,
                ArcFlashIssues = s.ArcFlashIssues,
-               EquipmentProtectionIssues = s.EquipmentProtectionIssues
-                
+               EquipmentProtectionIssues = s.EquipmentProtectionIssues,
+               DateCompleted = s.DateCompleted
+               
             }).ToListAsync();
 
             return (studyResultList);

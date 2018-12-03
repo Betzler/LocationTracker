@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LocationTracker.Data;
 using LocationTracker.Models;
+using LocationTracker.ViewComponents;
 
 namespace LocationTracker.Pages.Studies
 {
@@ -29,7 +30,7 @@ namespace LocationTracker.Pages.Studies
             }
 
             Study = await _context.Study.FirstOrDefaultAsync(m => m.StudyID == id);
-
+            var studyHistoryVC = new StudyHistoryViewComponent(_context).InvokeAsync(Study.StudyID);
             if (Study == null)
             {
                 return NotFound();

@@ -17,6 +17,9 @@ namespace LocationTracker.Data.Configurations
             builder.HasKey(b => b.BusinessUnitID);
             builder.Property(b => b.BusinessUnitID).IsRequired(true).HasColumnName("id");
 
+            builder.Property(b => b.DivisionID).IsRequired(true).HasColumnName("division_id");
+            builder.HasOne(b => b.Division).WithMany(d => d.BusinessUnits);
+
             builder.HasIndex(b => b.BusinessUnitName).IsUnique();
             builder.Property(b => b.BusinessUnitName).IsRequired(true).HasMaxLength(50).HasColumnName("name");
 

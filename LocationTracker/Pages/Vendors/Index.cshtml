@@ -1,0 +1,44 @@
+﻿@page
+@model LocationTracker.Pages.Vendors.IndexModel
+
+@{
+    ViewData["Title"] = "Vendors";
+}
+
+
+
+<div class="mb-3">
+    <h2>Vendors</h2>
+    <a class="btn btn-primary float-right" asp-page="Create">Create New</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VendorVM[0].VendorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VendorVM[0].VendorNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.VendorVM) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorNumber)
+            </td>
+            <td>
+                <div class="btn-group float-right">
+                    <a class="btn btn-primary btn-sm" asp-page="./Edit" asp-route-id="@item.VendorID">Edit</a>
+                    <a class="btn btn-primary btn-sm" asp-page="./Delete" asp-route-id="@item.VendorID">Delete</a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,55 @@
+﻿@page
+@model LocationTracker.Pages.Assessments.DetailsModel
+
+<div>
+    <h4>Assessment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Assessment.Vendor.VendorName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Assessment.Vendor.VendorName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Assessment.StudyRequired)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Assessment.StudyRequired)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Assessment.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Assessment.StartDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Assessment.EndDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Assessment.EndDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Assessment.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Assessment.Comment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Assessment.Location)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Assessment.Location.LocationCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Assessment.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Assessment.Status.StatusName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Assessment.AssessmentID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

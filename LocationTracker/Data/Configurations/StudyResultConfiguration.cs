@@ -14,18 +14,19 @@ namespace LocationTracker.Data.Configurations
         {
             builder.ToTable("study_result");
 
-            builder.HasKey(s => s.StudyResultID);
-            builder.Property(s => s.StudyResultID).HasColumnName("id");
+            builder.HasKey(sr => sr.StudyResultID);
+            builder.Property(sr => sr.StudyResultID).HasColumnName("id");
 
-            builder.Property(s => s.StudyHistoryID).IsRequired(true).HasColumnName("study_history_id");
-            builder.HasOne(s => s.StudyHistory).WithOne(s => s.StudyResult);
+            builder.Property(sr => sr.StudyID).IsRequired(true).HasColumnName("study_id");
+            builder.HasOne(sr => sr.Study).WithMany(s => s.StudyResults);
             
-            builder.Property(s => s.UnderratedIssues).HasColumnName("underrated_issues");
+            builder.Property(sr => sr.UnderratedIssues).IsRequired(true).HasColumnName("underrated_issues");
 
-            builder.Property(s => s.ArcFlashIssues).HasColumnName("arc_flash_issues");
+            builder.Property(sr => sr.ArcFlashIssues).IsRequired(true).HasColumnName("arc_flash_issues");
 
-            builder.Property(s => s.EquipmentProtectionIssues).HasColumnName("equipment_protection_issues");
+            builder.Property(sr => sr.EquipmentProtectionIssues).IsRequired(true).HasColumnName("equipment_protection_issues");
 
+            builder.Property(sr => sr.DateCompleted).IsRequired(true).HasColumnName("date_completed");
         }
     }
 }

@@ -26,9 +26,14 @@ namespace LocationTracker.Pages.Studies
 
         public async Task OnGetAsync()
         {
-            var StudyCreateVM = new StudyCreateViewModel();
+            var StudyCreateVM = new StudyCreateViewModel
+            {
+                LocationsList = new List<LocationCodeViewModel>()
+            };
 
-            await PopulateLocationCodeMSL(_context, StudyCreateVM.SelectedLocationsList);
+
+            await PopulateLocationCodeMSL(_context, StudyCreateVM.SelectedLocations);
+            
         }
 
         public async Task<IActionResult> OnPostAsync()

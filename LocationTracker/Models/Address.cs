@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FluentValidation;
+using LocationTracker.Models.Validators;
 
 namespace LocationTracker.Models
 {
+    [FluentValidation.Attributes.Validator(typeof(AddressValidator))]
     public class Address
     {
         public int AddressID { get; set; }

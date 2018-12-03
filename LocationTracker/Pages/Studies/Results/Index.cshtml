@@ -1,0 +1,55 @@
+﻿@page
+@model LocationTracker.Pages.Studies.Results.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyResult[0].UnderratedIssues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyResult[0].ArcFlashIssues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyResult[0].EquipmentProtectionIssues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyResult[0].DateCompleted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.StudyResult) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnderratedIssues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArcFlashIssues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentProtectionIssues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCompleted)
+            </td>
+
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.StudyResultID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.StudyResultID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.StudyResultID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

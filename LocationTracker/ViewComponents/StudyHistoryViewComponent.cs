@@ -35,8 +35,13 @@ namespace LocationTracker.ViewComponents
                 StudyTypeName = s.StudyType.StudyTypeName,
                 StatusID = s.StatusID,
                 StatusName = s.Status.StatusName,
+                VendorName = s.Vendor.VendorName,
                 StartDate = s.StartDate,
-                EndDate = s.EndDate
+                EndDate = s.EndDate,
+                ExpireDate = s.ExpirationDate,
+                UnderratedIssues = s.UnderratedIssues,
+                ArcFlashIssues = s.ArcFlashIssues,
+                EquipmentProtectionIssues = s.EquipmentProtectionIssues
                 
             }).ToListAsync();
 

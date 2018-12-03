@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LocationTracker.Data;
 using LocationTracker.Models;
+using LocationTracker.Models.ViewModels;
 
 namespace LocationTracker.Pages.Studies.History
 {
@@ -21,14 +22,15 @@ namespace LocationTracker.Pages.Studies.History
 
         public IActionResult OnGet()
         {
-        ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusName");
-        ViewData["StudyID"] = new SelectList(_context.Study, "StudyID", "StudyName");
-        ViewData["StudyTypeID"] = new SelectList(_context.StudyType, "StudyTypeID", "StudyTypeName");
+            ViewData["StatusID"] = new SelectList(_context.Status, "StatusID", "StatusName");
+            ViewData["StudyID"] = new SelectList(_context.Study, "StudyID", "StudyName");
+            ViewData["StudyTypeID"] = new SelectList(_context.StudyType, "StudyTypeID", "StudyTypeName");
+            ViewData["Vendors"] = new SelectList(_context.Vendor, "VendorID", "VendorName");
             return Page();
         }
 
         [BindProperty]
-        public StudyHistory StudyHistory { get; set; }
+        public StudyHistoryCreateViewModel StudyHistoryCreateVM { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -36,11 +38,34 @@ namespace LocationTracker.Pages.Studies.History
             {
                 return Page();
             }
-
-            _context.StudyHistory.Add(StudyHistory);
+            var studyHistoryToCreate = new StudyHistory()
+            {
+                StudyID = StudyHistoryCreateVM.StudyID,
+                StatusID = StudyHistoryCreateVM.StatusID,
+                StudyTypeID = StudyHistoryCreateVM.StudyTypeID,
+                VendorID = StudyHistoryCreateVM.VendorID,
+                UnderratedIssues = StudyHistoryCreateVM.UnderratedIssues,
+                ArcFlashIssues = StudyHistoryCreateVM.ArcFlashIssues,
+                EquipmentProtectionIssues = StudyHistoryCreateVM.EquipmentProtectionIssues,
+                StartDate = StudyHistoryCreateVM.StartDate,
+                EndDate = StudyHistoryCreateVM.EndDate,
+                ExpirationDate = CheckExpirationDate(StudyHistoryCreateVM.EndDate),
+                Comment = StudyHistoryCreateVM.Comment
+            };
+            _context.StudyHistory.Add(studyHistoryToCreate);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Details/", new { id = StudyHistoryCreateVM.StudyID });
+        }
+
+        private DateTime? CheckExpirationDate(DateTime? completionDate)
+        {
+            if(completionDate != null)
+            {
+                return completionDate.Value.AddYears(5);
+            }
+
+            return null;
         }
     }
 }

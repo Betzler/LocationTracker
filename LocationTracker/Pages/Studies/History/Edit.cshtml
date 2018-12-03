@@ -2,47 +2,65 @@
 @model LocationTracker.Pages.Studies.History.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Study History";
 }
 
-<h2>Edit</h2>
-
-<h4>StudyHistory</h4>
+<h2>Edit - Study History</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="StudyHistory.StudyHistoryID" />
+            <input type="hidden" asp-for="@Model.StudyHistoryEditVM.StudyHistoryID" />
             <div class="form-group">
-                <label asp-for="StudyHistory.StudyID" class="control-label"></label>
-                <select asp-for="StudyHistory.StudyID" class="form-control" asp-items="ViewBag.StudyID"></select>
-                <span asp-validation-for="StudyHistory.StudyID" class="text-danger"></span>
+                <label asp-for="@Model.StudyHistoryEditVM.StudyID" class="control-label"></label>
+                <select asp-for="@Model.StudyHistoryEditVM.StudyID" class="form-control" asp-items="ViewBag.StudyID"></select>
+                <span asp-validation-for="@Model.StudyHistoryEditVM.StudyID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StudyHistory.StatusID" class="control-label"></label>
-                <select asp-for="StudyHistory.StatusID" class="form-control" asp-items="ViewBag.StatusID"></select>
-                <span asp-validation-for="StudyHistory.StatusID" class="text-danger"></span>
+                <label asp-for="@Model.StudyHistoryEditVM.StatusID" class="control-label"></label>
+                <select asp-for="@Model.StudyHistoryEditVM.StatusID" class="form-control" asp-items="ViewBag.StatusID"></select>
+                <span asp-validation-for="@Model.StudyHistoryEditVM.StatusID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StudyHistory.StudyTypeID" class="control-label"></label>
-                <select asp-for="StudyHistory.StudyTypeID" class="form-control" asp-items="ViewBag.StudyTypeID"></select>
-                <span asp-validation-for="StudyHistory.StudyTypeID" class="text-danger"></span>
+                <label asp-for="@Model.StudyHistoryEditVM.StudyTypeID" class="control-label"></label>
+                <select asp-for="@Model.StudyHistoryEditVM.StudyTypeID" class="form-control" asp-items="ViewBag.StudyTypeID"></select>
+                <span asp-validation-for="@Model.StudyHistoryEditVM.StudyTypeID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StudyHistory.StartDate" class="control-label"></label>
-                <input asp-for="StudyHistory.StartDate" class="form-control" />
-                <span asp-validation-for="StudyHistory.StartDate" class="text-danger"></span>
+                <label asp-for="@Model.StudyHistoryEditVM.VendorID" class="control-label"></label>
+                <select asp-for="@Model.StudyHistoryEditVM.VendorID" class="form-control" asp-items="ViewBag.Vendors"></select>
+                <span asp-validation-for="@Model.StudyHistoryEditVM.VendorID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StudyHistory.EndDate" class="control-label"></label>
-                <input asp-for="StudyHistory.EndDate" class="form-control" />
-                <span asp-validation-for="StudyHistory.EndDate" class="text-danger"></span>
+                <label asp-for="@Model.StudyHistoryEditVM.StartDate" class="control-label"></label>
+                <input asp-for="@Model.StudyHistoryEditVM.StartDate" class="form-control" type="date" />
+                <span asp-validation-for="@Model.StudyHistoryEditVM.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StudyHistory.Comment" class="control-label"></label>
-                <input asp-for="StudyHistory.Comment" class="form-control" />
-                <span asp-validation-for="StudyHistory.Comment" class="text-danger"></span>
+                <label asp-for="@Model.StudyHistoryEditVM.EndDate" class="control-label"></label>
+                <input asp-for="@Model.StudyHistoryEditVM.EndDate" class="form-control" type="date" />
+                <span asp-validation-for="@Model.StudyHistoryEditVM.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.StudyHistoryEditVM.UnderratedIssues" class="control-label"></label>
+                <input asp-for="@Model.StudyHistoryEditVM.UnderratedIssues" class="form-control" type="number" min="0" />
+                <span asp-validation-for="@Model.StudyHistoryEditVM.UnderratedIssues" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.StudyHistoryEditVM.ArcFlashIssues" class="control-label"></label>
+                <input asp-for="@Model.StudyHistoryEditVM.ArcFlashIssues" class="form-control" type="number" min="0" />
+                <span asp-validation-for="@Model.StudyHistoryEditVM.ArcFlashIssues" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.StudyHistoryEditVM.EquipmentProtectionIssues" class="control-label"></label>
+                <input asp-for="@Model.StudyHistoryEditVM.EquipmentProtectionIssues" class="form-control" type="number" min="0" />
+                <span asp-validation-for="@Model.StudyHistoryEditVM.EquipmentProtectionIssues" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.StudyHistoryEditVM.Comment" class="control-label"></label>
+                <input asp-for="@Model.StudyHistoryEditVM.Comment" class="form-control" />
+                <span asp-validation-for="@Model.StudyHistoryEditVM.Comment" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -52,7 +70,7 @@
 </div>
 
 <div>
-    <a asp-page="../Details" asp-route-id="@Model.StudyHistory.StudyID">Back to List</a>
+    <a asp-page="../Details" asp-route-id="@Model.@Model.StudyHistoryEditVM.StudyID">Back to List</a>
 </div>
 
 @section Scripts {

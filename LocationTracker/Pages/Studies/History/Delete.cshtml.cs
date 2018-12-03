@@ -31,6 +31,7 @@ namespace LocationTracker.Pages.Studies.History
             }
             StudyHistoryDeleteVM = await _context.StudyHistory.Select(s => new StudyHistoryDeleteViewModel
             {
+                StudyID = s.StudyID,
                 StudyHistoryID = s.StudyHistoryID,
                 StudyName = s.Study.StudyName,
                 StudyTypeID = s.StudyTypeID,
@@ -63,13 +64,13 @@ namespace LocationTracker.Pages.Studies.History
             };
 
 
-            if (StudyHistoryDeleteVM != null)
+            if (studyHistoryToDelete != null)
             {
                 _context.StudyHistory.Remove(studyHistoryToDelete);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Details/", new { id = StudyHistoryDeleteVM.StudyID });
         }
     }
 }

@@ -1,0 +1,67 @@
+﻿@page
+@model LocationTracker.Pages.Assessments.IndexModel
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentIndexVM[0].LocationCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentIndexVM[0].StatusName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentIndexVM[0].PerformedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentIndexVM[0].StudyRequired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentIndexVM[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentIndexVM[0].EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessmentIndexVM[0].Comment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AssessmentIndexVM)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerformedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudyRequired)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.AssessmentID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.AssessmentID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.AssessmentID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,44 @@
+﻿@page
+@model LocationTracker.Pages.Studies.Results.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StudyResult</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyResult.UnderratedIssues)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyResult.UnderratedIssues)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyResult.ArcFlashIssues)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyResult.ArcFlashIssues)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyResult.EquipmentProtectionIssues)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyResult.EquipmentProtectionIssues)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyResult.DateCompleted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudyResult.DateCompleted)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.StudyResult.StudyResultID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

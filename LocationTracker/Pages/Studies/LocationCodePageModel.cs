@@ -15,11 +15,11 @@ namespace LocationTracker.Pages.Studies
     {
         public MultiSelectList LocationCodeMSL { get; set; }
 
-        public async Task PopulateLocationCodeMSL(TrackerContext _context, IList<StudyCreateLocationViewModel> selectedLocationsList)
+        public async Task PopulateLocationCodeMSL(TrackerContext _context, List<int> selectedLocationsList = null)
         {
-            IList<StudyCreateLocationViewModel> locationCodeList = new List<StudyCreateLocationViewModel>();
+            IList<LocationCodeViewModel> locationCodeList = new List<LocationCodeViewModel>();
 
-            locationCodeList = await _context.Location.Select(l => new StudyCreateLocationViewModel()
+            locationCodeList = await _context.Location.Select(l => new LocationCodeViewModel()
             {
                 LocationID = l.LocationID,
                 LocationCode = l.LocationCode,

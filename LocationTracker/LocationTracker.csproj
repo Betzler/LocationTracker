@@ -2,10 +2,44 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Platforms>AnyCPU;x86</Platforms>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>b3b5f60d-6b97-4151-a3ba-4100c5924d47</UserSecretsId>
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="bootstrap" Version="4.1.3" />
+    <PackageReference Include="bootstrap.sass" Version="4.1.3" />
+    <PackageReference Include="chart.js" Version="2.7.3" />
+    <PackageReference Include="FluentValidation" Version="7.6.104" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="7.6.104" />
+    <PackageReference Include="Font.Awesome" Version="5.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Moment.js" Version="2.22.2" />
+    <PackageReference Include="Npm" Version="3.5.2" />
+    <PackageReference Include="popper.js" Version="1.14.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Pages\Components\Assessment\default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Components\StudyHistoryGraph\default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Components\StudyResult\default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Overview\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
 
 </Project>

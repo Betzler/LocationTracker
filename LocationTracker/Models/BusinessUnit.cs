@@ -10,8 +10,10 @@ namespace LocationTracker.Models
     public class BusinessUnit
     {
         public int BusinessUnitID { get; set; }
+        public int DivisionID { get; set; }
         public string BusinessUnitName { get; set; }
 
         public virtual ICollection<Location> Locations { get; set; }
+        public virtual Division Division { get; set; }
     }
 }
